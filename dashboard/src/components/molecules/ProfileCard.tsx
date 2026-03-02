@@ -71,21 +71,11 @@ export default function ProfileCard({
           </Button>
         )}
         {isRunning ? (
-          <Button
-            size="sm"
-            variant="danger"
-            className="flex-1"
-            onClick={onStop}
-          >
+          <Button size="sm" variant="danger" onClick={onStop}>
             Stop
           </Button>
         ) : (
-          <Button
-            size="sm"
-            variant="primary"
-            className="flex-1"
-            onClick={onLaunch}
-          >
+          <Button size="sm" variant="primary" onClick={onLaunch}>
             Start
           </Button>
         )}
