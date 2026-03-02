@@ -99,10 +99,7 @@ export default function MonitoringPage() {
   if (instances.length === 0) {
     return (
       <div className="flex flex-1 items-center justify-center p-4">
-        <EmptyState
-          title="No instances"
-          description="Start a profile to create an instance"
-        />
+        <EmptyState title="Waiting for instances..." icon="📡" />
       </div>
     )
   }

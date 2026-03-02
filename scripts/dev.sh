@@ -1,5 +1,5 @@
 #!/bin/bash
-# Build and run Pinchtab with React dashboard
+# Build and run PinchTab with React dashboard
 set -e
 
 cd "$(dirname "$0")/.."
@@ -12,5 +12,5 @@ echo "🔨 Building Go..."
 go build -o pinchtab ./cmd/pinchtab
 
 # Run
-echo "🦀 Starting Pinchtab..."
+echo "🦀 Starting PinchTab..."
 exec ./pinchtab "$@"

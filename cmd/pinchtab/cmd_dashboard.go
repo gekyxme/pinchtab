@@ -23,14 +23,14 @@ import (
 )
 
 // runDashboard starts a lightweight dashboard server — no Chrome, no bridge.
-// It manages Pinchtab instances via the orchestrator and serves the dashboard UI.
+// It manages PinchTab instances via the orchestrator and serves the dashboard UI.
 func runDashboard(cfg *config.RuntimeConfig) {
 	dashPort := cfg.Port
 	if dashPort == "" {
 		dashPort = "9870"
 	}
 
-	slog.Info("🦀 Pinchtab Dashboard", "port", dashPort)
+	slog.Info("🦀 PinchTab", "port", dashPort)
 
 	profilesDir := filepath.Join(cfg.StateDir, "profiles")
 	if err := os.MkdirAll(profilesDir, 0755); err != nil {
