@@ -111,17 +111,29 @@ run_integration_tests() {
 
     [ -z "$test_name" ] && continue
 
+    # Track elapsed time from Elapsed field
+    local elapsed
+    elapsed=$(echo "$line" | jq -r '.Elapsed // empty' 2>/dev/null)
+
     case "$action" in
       run)
         printf "\r    ${MUTED}▸ %s${NC}%*s" "$test_name" $((50 - ${#test_name})) ""
         ;;
       pass)
         count=$((count + 1))
-        printf "\r    ${SUCCESS}✓${NC} ${MUTED}[%d]${NC} %s%*s\n" "$count" "$test_name" $((40 - ${#test_name})) ""
+        if [ -n "$elapsed" ]; then
+          printf "\r    ${SUCCESS}✓${NC} ${MUTED}[%d]${NC} %s %s%*s\n" "$count" "$test_name" "${MUTED}${elapsed}s${NC}" $((30 - ${#test_name})) ""
+        else
+          printf "\r    ${SUCCESS}✓${NC} ${MUTED}[%d]${NC} %s%*s\n" "$count" "$test_name" $((40 - ${#test_name})) ""
+        fi
         ;;
       fail)
         count=$((count + 1))
-        printf "\r    ${ERROR}✗${NC} ${MUTED}[%d]${NC} %s%*s\n" "$count" "$test_name" $((40 - ${#test_name})) ""
+        if [ -n "$elapsed" ]; then
+          printf "\r    ${ERROR}✗${NC} ${MUTED}[%d]${NC} %s %s%*s\n" "$count" "$test_name" "${MUTED}${elapsed}s${NC}" $((30 - ${#test_name})) ""
+        else
+          printf "\r    ${ERROR}✗${NC} ${MUTED}[%d]${NC} %s%*s\n" "$count" "$test_name" $((40 - ${#test_name})) ""
+        fi
         ;;
       skip)
         count=$((count + 1))
